@@ -1,0 +1,54 @@
+class Students:
+    raise_amount = 1.05
+    num_st = 0
+    def __init__(self,fname,lname, year, pay):
+        self.fname = fname
+        self.lname = lname
+        self.year = year
+        self.pay = pay
+        Students.num_st += 1
+    def fullname(self):
+        print('{} {}'.format(self.fname, self.lname))
+
+    def year_joint(self):
+        print('Year graduated', self.year)
+
+    def pay_raise(self):
+        self.pay = int(self.pay * Students.raise_amount)
+
+    @classmethod
+    def set_raise(cls, amount):
+        cls.raise_amount = amount
+
+    @classmethod
+    def from_string(cls,str_student):
+        first, last, year, pay = str_student.split('-')
+        return cls(first, last, year, pay)
+
+class Teachers(Students):
+    raise_amount = 1.20
+    def __init__(self, fname, lname, year, pay, subj):
+        super().__init__(fname, lname, year, pay)
+        self.subj = subj
+
+Student1 = Students('Alexey', 'Kuzmis', 2020, 50000)
+Student2 = Students('Uliana', 'SSDSD', 2010, 40000)
+Studen3 = Students('DDD', 'SSDSD', 2010, 40000)
+
+Teacher1 = Teachers('Arik', 'Kuz', 2012, 60000, 'python')
+
+
+str_student1 = 'Oleg-Polin-2005-20000'
+
+New_Student1 = Students.from_string(str_student1)
+
+print(New_Student1.lname)
+
+Students.set_raise(1.05)
+
+print(Students.num_st)
+print(Students.raise_amount)
+print(Teacher1.lname)
+Teacher1.pay_raise()
+print(Teacher1.pay)
+print(Teacher1.subj)
